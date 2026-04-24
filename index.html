@@ -4,18 +4,44 @@
   <meta charset="UTF-8">
   <title>Brendan Kanaley</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Resume website for Brendan Kanaley">
+  <meta name="description" content="Resume website for Brendan Kanaley, Intelligent Systems Engineering student at DePaul University">
   <style>
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      max-width: 800px;
+      max-width: 900px;
       margin: 50px auto;
       padding: 0 20px;
       line-height: 1.6;
       color: #111;
     }
-    h1, h2 {
-      line-height: 1.25;
+    h1 {
+      margin-bottom: 0.2em;
+    }
+    h2 {
+      margin-top: 2em;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 0.25em;
+    }
+    h3 {
+      margin-bottom: 0.2em;
+    }
+    .subheader {
+      color: #555;
+      font-size: 0.95em;
+    }
+    ul {
+      margin-top: 0.4em;
+    }
+    li {
+      margin-bottom: 0.4em;
+    }
+    .section {
+      margin-top: 1.5em;
+    }
+    .skills ul {
+      columns: 2;
+      -webkit-columns: 2;
+      -moz-columns: 2;
     }
     a {
       color: #0066cc;
@@ -24,33 +50,97 @@
     a:hover {
       text-decoration: underline;
     }
-    hr {
-      margin: 2rem 0;
-    }
   </style>
 </head>
 <body>
 
   <h1>Brendan Kanaley</h1>
-  <p>
-    DePaul University Student<br>
-    <a href="mailto:youremail@example.com">youremail@example.com</a> |
-    <a href="https://github.com/yourusername">GitHub</a> |
-    <a href="https://www.linkedin.com/in/yourprofile/">LinkedIn</a>
+  <p class="subheader">
+    Chicago, IL · 
+    <a href="mailto:bkanaley5@gmail.com">bkanaley5@gmail.com</a> · 
+    <a href="https://www.linkedin.com/in/brendan-kanaley" target="_blank">LinkedIn</a>
   </p>
 
-  <hr>
+  <section class="section">
+    <h2>Education</h2>
+    <h3>DePaul University</h3>
+    <p class="subheader">
+      Bachelor of Science, Intelligent Systems Engineering<br>
+      Expected June 2026 · GPA: 3.6
+    </p>
+    <p>
+      <strong>Relevant Coursework:</strong>
+      Electrical Engineering, Embedded Systems, Logic Circuitry, Signal Processing,
+      Network Engineering, Mathematical Modeling
+    </p>
+  </section>
 
-  <h2>Experience</h2>
-  <p><strong>Role – Company</strong><br>
-  Short description of what you did.</p>
+  <section class="section">
+    <h2>Projects</h2>
 
-  <h2>Projects</h2>
-  <p><strong>Project Name</strong><br>
-  What you built and what problem it solves.</p>
+    <h3>Frequency Detector and Processor</h3>
+    <p class="subheader">Digital Audio Project</p>
+    <ul>
+      <li>Implemented software to analyze real‑time audio input from the system microphone and alert when a selected frequency is detected.</li>
+      <li>Used MATLAB to plot live audio data captured from a headphone microphone and tested with whistles and musical tones.</li>
+      <li>Explored applications such as music‑reactive LED systems and whistle‑alert safety tools for lifeguards.</li>
+    </ul>
 
-  <h2>Education</h2>
-  <p>DePaul University — Your Degree</p>
+    <h3>Tilt / Roll Angle Alert Using Microcontroller</h3>
+    <p class="subheader">Embedded Systems Project</p>
+    <ul>
+      <li>Configured sensors on a Nordic nRF microcontroller using the I2C communication protocol.</li>
+      <li>Calculated real‑time tilt angle readings from the onboard gyroscope.</li>
+      <li>Validated sensor output using Saleae Logic Analyzer software.</li>
+    </ul>
+
+    <h3>Class B Amplifier with Three‑Band Equalizer</h3>
+    <p class="subheader">Electrical Engineering Project</p>
+    <ul>
+      <li>Designed and implemented a mono Class B audio amplifier using operational amplifiers and BJT transistors.</li>
+      <li>Integrated a 3‑band analog equalizer with volume control.</li>
+    </ul>
+
+    <h3>Rock, Paper, Scissors Analog Logic Decoder</h3>
+    <p class="subheader">Digital Logic Project</p>
+    <ul>
+      <li>Assembled a 6‑input, 3‑output logic circuit using AND/OR gates.</li>
+      <li>Attached a latch system with delay to retain output state memory.</li>
+    </ul>
+  </section>
+
+  <section class="section skills">
+    <h2>Technical Skills</h2>
+    <ul>
+      <li><strong>Programming:</strong> Python, C/C++, Java</li>
+      <li><strong>Operating Systems:</strong> Linux, Windows, RTOS</li>
+      <li><strong>Circuit Design:</strong> LTSpice, Simulink, MATLAB, CAD</li>
+      <li><strong>Signal Processing:</strong> Saleae Logic, Audacity</li>
+      <li><strong>Embedded Systems:</strong> SPI, I2C, CAN protocols</li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <h2>Experience</h2>
+    <h3>Lunch Heroes LLC</h3>
+    <p class="subheader">
+      Front of House Lead · Chicago, IL · 2024–2025
+    </p>
+    <ul>
+      <li>Acted as a versatile team member for a new local business, adapting daily responsibilities to meet operational needs.</li>
+      <li>Drove increased patronage through on‑the‑street marketing initiatives.</li>
+      <li>Delivered high‑quality customer experiences through food preparation and service.</li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <h2>Interests</h2>
+    <ul>
+      <li>Cycling, basketball, and baseball</li>
+      <li>Bass guitar and guitar pedal sound design</li>
+      <li>Word and geography puzzle challenges</li>
+    </ul>
+  </section>
 
 </body>
 </html>
