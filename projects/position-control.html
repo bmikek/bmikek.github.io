@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DC Motor Position Control</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 0 20px;
+      line-height: 1.6;
+    }
+    a { color: #0066cc; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  ← Back to Projects
+
+  <h1>DC Motor Position Control</h1>
+  <p><strong>Closed-Loop Control Lab · November 2025</strong></p>
+
+  <h2>Overview</h2>
+  <p>
+    This project explored closed-loop position control of a DC motor using
+    negative unity feedback, proportional (P), and proportional–integral (PI)
+    controllers implemented and tested in Simulink.
+  </p>
+
+  <h2>System Design</h2>
+  <ul>
+    <li>DC motor model with encoder-based position feedback</li>
+    <li>Unity feedback transfer function analysis</li>
+    <li>Error response evaluation using step, ramp, and sinusoidal inputs</li>
+  </ul>
+
+  <h2>Controller Comparison</h2>
+  <ul>
+    <li><strong>Unity Feedback:</strong> Accurate for constant steps but failed for ramps and sinusoids</li>
+    <li><strong>Proportional Control:</strong> Reduced oscillations with proper gain tuning but introduced steady-state error</li>
+    <li><strong>PI Control:</strong> Improved ramp tracking but difficult to stabilize for sinusoidal inputs</li>
+  </ul>
+
+  <h2>Key Takeaways</h2>
+  <ul>
+    <li>Unity feedback is inadequate for dynamic position references</li>
+    <li>Proportional gain tuning balances noise and responsiveness</li>
+    <li>Integral action improves steady-state error at the cost of stability</li>
+  </ul>
+
+  <p>
+    View lab report PDF
+  </p>
+
+</body>
+</html>
