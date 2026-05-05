@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rock–Paper–Scissors Logic Decoder</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 0 20px;
+      line-height: 1.6;
+    }
+    h1, h2 { margin-top: 1.5em; }
+    ul { margin-top: 0.5em; }
+    a { color: #0066cc; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  ← Back to Projects
+
+  <h1>Rock–Paper–Scissors 1v1 Logic Decoder</h1>
+  <p><strong>Digital Systems Final Project · February 2024</strong></p>
+
+  <h2>Overview</h2>
+  <p>
+    This project implements a complete two‑player Rock–Paper–Scissors game using
+    discrete digital logic. The system determines win, loss, or tie outcomes
+    based purely on hardware‑level Boolean logic.
+  </p>
+
+  <h2>System Design</h2>
+  <ul>
+    <li>6-player input signals (Rock, Paper, Scissors per player)</li>
+    <li>Combinational logic network for outcome detection</li>
+    <li>LED indicators for player choice and game result</li>
+    <li>Latching subsystem to hold inputs until reset</li>
+  </ul>
+
+  <h2>Logic & Validation</h2>
+  <ul>
+    <li>Derived Boolean equations for Player 1 Win, Player 2 Win, and Tie conditions</li>
+    <li>Constructed full truth tables to verify correctness</li>
+    <li>Implemented logic using AND/OR gate networks</li>
+  </ul>
+
+  <h2>Additional Features</h2>
+  <ul>
+    <li>Cheating detection for simultaneous multi-button presses</li>
+    <li>Buzzer and LED alerts for invalid input states</li>
+    <li>3-bit decoder and latch system to preserve fairness</li>
+  </ul>
+
+  <h2>Documentation</h2>
+  <p>
+    View full hardware documentation (PDF)
+  </p>
+
+</body>
+</html>
