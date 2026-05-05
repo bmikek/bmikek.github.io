@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DC Motor Velocity Control</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 0 20px;
+      line-height: 1.6;
+    }
+    a { color: #0066cc; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  ← Back to Projects
+
+  <h1>DC Motor Velocity Control</h1>
+  <p><strong>Closed-Loop Control Lab · November 2025</strong></p>
+
+  <h2>Overview</h2>
+  <p>
+    This project focused on velocity control of a DC motor using increasing levels
+    of controller complexity: unity feedback, proportional (P), PI, and PID control.
+  </p>
+
+  <h2>Controller Design</h2>
+  <ul>
+    <li>Laplace-domain motor modeling</li>
+    <li>Gain tuning through simulation-based experimentation</li>
+    <li>Evaluation using step and sinusoidal velocity references</li>
+  </ul>
+
+  <h2>Performance Results</h2>
+  <ul>
+    <li><strong>P Control:</strong> Reduced noise but introduced consistent tracking error</li>
+    <li><strong>PI Control:</strong> Near-zero steady-state error with smoother output</li>
+    <li><strong>PID Control:</strong> Best overall performance with minimal lag and accurate amplitude tracking</li>
+  </ul>
+
+  <h2>Observations</h2>
+  <ul>
+    <li>Derivative action significantly reduced lag for sinusoidal inputs</li>
+    <li>PID control performed best for dynamic references</li>
+    <li>Over-tuning derivative gain increased noise sensitivity</li>
+  </ul>
+
+  <h2>Conclusion</h2>
+  <p>
+    PID control is recommended for applications requiring accurate velocity tracking
+    of time-varying signals, while PI control offers a simpler compromise when noise
+    is a concern.
+  </p>
+
+  <p>
+    View lab report PDF
+  </p>
+
+</body>
+</html>
