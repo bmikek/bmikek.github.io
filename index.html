@@ -7,7 +7,7 @@
   <meta name="description" content="Resume website for Brendan Kanaley, Intelligent Systems Engineering student at DePaul University">
   <style>
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: system-ui,  sans-serif;
       max-width: 900px;
       margin: 50px auto;
       padding: 0 20px;
@@ -75,44 +75,38 @@
       Network Engineering, Mathematical Modeling
     </p>
   </section>
+<section class="section">
+    <h2>Featured Projects</h2>
 
-  <section class="section">
-    <h2>Projects</h2>
-
-    <h3>Frequency Detector and Processor</h3>
-    <p class="subheader">Digital Audio Project</p>
+    <h3>Proof-of-Work Hardware Accelerator</h3>
+    <p class="subheader">FPGA • Verilog • Vivado</p>
     <ul>
-      <li>Implemented software to analyze real‑time audio input from the system microphone and alert when a selected frequency is detected.</li>
-      <li>Used MATLAB to plot live audio data captured from a headphone microphone and tested with whistles and musical tones.</li>
-      <li>Explored applications such as music‑reactive LED systems and whistle‑alert safety tools for lifeguards.</li>
+        <li>Designed a custom Proof-of-Work mining accelerator in Verilog.</li>
+        <li>Implemented hardware and software miners and benchmarked performance on a NEORV32 processor.</li>
+        <li>Achieved approximately 200× speedup through FPGA acceleration.</li>
+        <li>Developed finite-state machines and combinational hash modules in Vivado.</li>
     </ul>
+    <p>projects/pow-miner.htmlView project →</a></p>
 
-    <h3>Tilt / Roll Angle Alert Using Microcontroller</h3>
-    <p class="subheader">Embedded Systems Project</p>
+    <h3>Aquatic Safety Alert System</h3>
+    <p class="subheader">Embedded Systems • Sensors • Microcontrollers</p>
     <ul>
-      <li>Configured sensors on a Nordic nRF microcontroller using the I2C communication protocol.</li>
-      <li>Calculated real‑time tilt angle readings from the onboard gyroscope.</li>
-      <li>Validated sensor output using Saleae Logic Analyzer software.</li>
+        <li>Designed a swimmer safety monitoring system using embedded sensors.</li>
+        <li>Implemented real-time detection and alert functionality.</li>
+        <li>Integrated hardware and software for environmental monitoring.</li>
     </ul>
+    <p>projects/aquatic-safety.htmlView project →</a></p>
 
-    <h3>Class B Amplifier with Three‑Band Equalizer</h3>
-    <p class="subheader">Electrical Engineering Project</p>
+    <h3>Flight Arrival Delay Prediction</h3>
+    <p class="subheader">Machine Learning • Python • Scikit-Learn</p>
     <ul>
-      <li>Designed and implemented a mono Class B audio amplifier using operational amplifiers and BJT transistors.</li>
-      <li>Integrated a 3‑band analog equalizer with volume control.</li>
+        <li>Analyzed a 3-million-record airline dataset.</li>
+        <li>Trained Random Forest, Decision Tree, Ridge, LASSO, and Linear Regression models.</li>
+        <li>Performed extensive feature engineering and model evaluation.</li>
     </ul>
-
-    <h3>Rock–Paper–Scissors 1v1 Logic Decoder</h3>
-    <p class="subheader">Digital Systems Final Project · February 2024</p>
-    <p>
-      Designed a complete hardware-based Rock–Paper–Scissors game using Boolean logic,
-      combinational circuits, and decoders.
-    </p>
-    <p>
-      View full project →
-    </p>
-    
-   
+    <p>projects/flight-delay-ml.htmlView project →</a></p>
+</section>
+ 
   </section>
 
   <section class="section skills">
