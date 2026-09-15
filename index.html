@@ -50,17 +50,59 @@
     a:hover {
       text-decoration: underline;
     }
+    .hero {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 2rem;
+    }
+  
+    .hero-text {
+      flex: 1;
+    }
+
+    .profile-photo {
+      width: 180px;
+      height: 180px;
+
+      object-fit: cover;
+
+      border-radius: 12px;
+
+      border: 2px solid #ddd;
+
+      margin-left: 2rem;
+    }
+    @media (max-width: 700px) {
+      .hero {
+        flex-direction: column-reverse;
+        align-items: center;
+        text-align: center;
+    }
+
+    .profile-photo {
+        margin: 0 0 1rem 0;
+        width: 150px;
+        height: 150px;
+    }
+}
   </style>
 </head>
 <body>
+<header class="hero">
+  <div class="hero-text">
+    <h1>Brendan Kanaley</h1>
 
-  <h1>Brendan Kanaley</h1>
-  <p class="subheader">
-    Chicago, IL · 
-    <a href="mailto:bkanaley5@gmail.com">bkanaley5@gmail.com</a> · 
-    <a href="https://www.linkedin.com/in/brendan-kanaley" target="_blank">LinkedIn</a> ·
-    <a href ="projects.html">Portfolio</a>
-  </p>
+    <p class="subheader">
+      Chicago, IL ·
+      bkanaley5@gmail.combkanaley5@gmail.com</a> ·
+      https://www.linkedin.com/in/brendan-kanaleyLinkedIn</a> ·
+      <a href="projects.html">Portfolio</a>
+    </p>
+  </div>
+
+  images/51422858_85201_0832_XLarge.jpg
+</header>
 
   <section class="section">
     <h2>Education</h2>
@@ -109,16 +151,43 @@
  
   </section>
 
-  <section class="section skills">
-    <h2>Technical Skills</h2>
-    <ul>
-      <li><strong>Programming:</strong> Python, C/C++, Java</li>
-      <li><strong>Operating Systems:</strong> Linux, Windows, RTOS</li>
-      <li><strong>Circuit Design:</strong> LTSpice, Simulink, MATLAB, CAD</li>
-      <li><strong>Signal Processing:</strong> Saleae Logic, Audacity</li>
-      <li><strong>Embedded Systems:</strong> SPI, I2C, CAN protocols</li>
-    </ul>
-  </section>
+<section class="section skills">
+  <h2>Technical Skills</h2>
+
+  <ul>
+    <li><strong>Languages:</strong> Python, C/C++, Java, Verilog HDL</li>
+
+    <li><strong>FPGA & Digital Design:</strong>
+      Xilinx Vivado, RTL Design, AXI Interfaces,
+      Finite State Machines, Digital Logic Design
+    </li>
+
+    <li><strong>Embedded Systems:</strong>
+      SPI, I2C, CAN, RTOS, Microcontroller Development
+    </li>
+
+    <li><strong>Circuit Design:</strong>
+      KiCad PCB Design, LTSpice, MATLAB, Simulink
+    </li>
+
+    <li><strong>Machine Learning:</strong>
+      Scikit-Learn, Random Forests, Decision Trees,
+      Data Analysis, Feature Engineering
+    </li>
+
+    <li><strong>Engineering Tools:</strong>
+      Git, Saleae Logic Analyzer, Oscilloscopes
+    </li>
+
+    <li><strong>Manufacturing:</strong>
+      3D Printing, Additive Manufacturing (Bambu Lab)
+    </li>
+
+    <li><strong>Operating Systems:</strong>
+      Linux, Windows
+    </li>
+  </ul>
+</section>
 
   <section class="section">
     <h2>Experience</h2>
