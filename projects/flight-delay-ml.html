@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flight Delay Analysis with Machine Learning</title>
+style.css
+</head>
+
+<body>
+
+<div class="project-page">
+
+    <h1>Flight Delay Analysis with Machine Learning</h1>
+
+    images/flight-delay-analysis.png
+
+    <h2>Project Overview</h2>
+
+    <p>
+        This project investigates whether flight arrival delays can be
+        predicted using information available at booking time.
+        A dataset containing approximately three million domestic flights
+        from 2019 through 2023 was analyzed using supervised machine
+        learning techniques.
+    </p>
+
+    <p>
+        The goal was to predict arrival delay duration in minutes using
+        airline, airport, seasonal, and schedule-related features while
+        avoiding information leakage from post-flight data.
+    </p>
+
+    <h2>Technical Contributions</h2>
+
+    <ul>
+        <li>Performed exploratory data analysis on 3 million flight records.</li>
+        <li>Applied cyclical encoding to month and departure hour features.</li>
+        <li>Implemented target encoding for airlines and origin airports.</li>
+        <li>Created interaction features capturing airline and time-of-day effects.</li>
+        <li>Built Linear Regression, Ridge, LASSO, Decision Tree, and Random Forest models.</li>
+        <li>Used feature engineering techniques including log transforms and outlier capping.</li>
+    </ul>
+
+    <h2>Results</h2>
+
+    <p>
+        The Random Forest model achieved the best performance,
+        producing an RMSE of approximately 37.8 minutes.
+        Feature importance analysis revealed that route distance,
+        airline-time interactions, and airport historical delay
+        behavior were stronger predictors than originally expected.
+    </p>
+
+    <h2>Technologies Used</h2>
+
+    <ul>
+        <li>Python</li>
+        <li>Pandas</li>
+        <li>Scikit-Learn</li>
+        <li>NumPy</li>
+        <li>Matplotlib</li>
+        <li>Machine Learning</li>
+        <li>Data Analysis</li>
+    </ul>
+
+    files/DSC445_Final_Report.pdf
+        View Full Report
+    </a>
+
+</div>
+
+</body>
+</html>
