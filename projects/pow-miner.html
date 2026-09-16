@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FPGA Proof-of-Work Miner</title>
+style.css
+</head>
+
+<body>
+
+<div class="project-page">
+
+    <h1>FPGA Proof-of-Work Miner</h1>
+
+    images/fpga-miner.jpg
+
+    <h2>Project Overview</h2>
+
+    <p>
+        This project explores hardware acceleration through the
+        implementation of a Proof-of-Work mining algorithm in both
+        software and FPGA hardware.
+    </p>
+
+    <p>
+        The objective was to compare execution speed between a
+        processor-based implementation running on a NEORV32 CPU and
+        a custom hardware accelerator implemented in FPGA logic.
+    </p>
+
+    <h2>Hardware Design</h2>
+
+    <ul>
+        <li>Custom Proof-of-Work hash function</li>
+        <li>Finite State Machine architecture</li>
+        <li>IDLE, BUSY, and DONE operating states</li>
+        <li>Single-cycle hardware hash evaluation</li>
+        <li>Dedicated nonce search accelerator</li>
+    </ul>
+
+    <h2>Software Design</h2>
+
+    <ul>
+        <li>NEORV32 processor implementation</li>
+        <li>Sequential hash evaluation</li>
+        <li>Iterative nonce search loop</li>
+        <li>Software-based threshold comparison</li>
+    </ul>
+
+    <h2>Performance Results</h2>
+
+    <p>
+        The FPGA accelerator demonstrated dramatic improvements
+        compared to software execution.
+    </p>
+
+    <ul>
+        <li>Easy Test: 233 cycles (software) vs 160 cycles (hardware)</li>
+        <li>Medium Test: 401 million cycles vs 4.3 million cycles</li>
+        <li>Hard Test: ~1 billion cycles vs 4.4 million cycles</li>
+        <li>Approximately 200× performance improvement</li>
+    </ul>
+
+    <h2>Skills Demonstrated</h2>
+
+    <ul>
+        <li>Verilog HDL</li>
+        <li>FPGA Design</li>
+        <li>Digital Logic</li>
+        <li>Hardware Acceleration</li>
+        <li>Finite State Machines</li>
+        <li>Hardware/Software Co-Design</li>
+        <li>Computer Architecture</li>
+    </ul>
+
+    files/csc397report.pdf
+        View Project Report
+    </a>
+
+</div>
+
+</body>
+</html>
