@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aquatic Safety Alert System</title>
+style.css
+</head>
+
+<body>
+
+<div class="project-page">
+
+    <h1>Aquatic Safety Alert System</h1>
+
+    images/aquatic-safety-system.jpg
+
+    <h2>Project Overview</h2>
+
+    <p>
+        The Aquatic Safety Alert System is an embedded acoustic detection
+        platform designed to assist lifeguards during emergency situations.
+        The system automatically detects whistle signals and immediately
+        transmits alerts across a wireless network for rapid response.
+    </p>
+
+    <p>
+        Built around an ESP32 microcontroller and INMP441 MEMS
+        microphone, the device continuously performs real-time
+        frequency analysis using Fast Fourier Transform (FFT)
+        algorithms.
+    </p>
+
+    <h2>System Architecture</h2>
+
+    <ul>
+        <li>ESP32-WROVER microcontroller</li>
+        <li>INMP441 digital MEMS microphone</li>
+        <li>I2S audio acquisition</li>
+        <li>ESP-DSP optimized FFT processing</li>
+        <li>Wi-Fi based emergency notifications</li>
+        <li>Real-time monitoring dashboard</li>
+    </ul>
+
+    <h2>Key Engineering Features</h2>
+
+    <ul>
+        <li>16 kHz audio sampling pipeline</li>
+        <li>1024-sample FFT processing blocks</li>
+        <li>Dual-threshold whistle detection algorithm</li>
+        <li>Frequency-domain signal classification</li>
+        <li>Embedded web dashboard for alerts</li>
+        <li>Portable low-power deployment</li>
+    </ul>
+
+    <h2>Testing Results</h2>
+
+    <p>
+        Testing was conducted in simulated pool environments.
+        The optimized 2200-3000 Hz detection configuration achieved:
+    </p>
+
+    <ul>
+        <li>80% detection accuracy at 5 meters</li>
+        <li>60% detection accuracy at 10 meters</li>
+        <li>40% detection accuracy at 15 meters</li>
+        <li>Zero false positives during evaluation</li>
+    </ul>
+
+    <h2>Technologies Used</h2>
+
+    <ul>
+        <li>ESP32</li>
+        <li>C++</li>
+        <li>ESP-DSP</li>
+        <li>FFT Signal Processing</li>
+        <li>Embedded Systems</li>
+        <li>Wi-Fi Networking</li>
+        <li>I2S Audio</li>
+    </ul>
+
+    files/ASEE_Paper.pdf
+        View Research Paper
+    </a>
+
+</div>
+
+</body>
+</html>
