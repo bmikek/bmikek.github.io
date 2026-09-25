@@ -4,19 +4,54 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Flight Delay Analysis with Machine Learning</title>
-style.css
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    body {
+      font-family: system-ui, sans-serif;
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 0 20px;
+      line-height: 1.6;
+    }
+    h1, h2 { margin-top: 1.5em; }
+    ul { margin-top: 0.5em; }
+    a { color: #0066cc; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .image-row {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin: 30px auto;
+        max-width: 900px;
+}
+
+    .image-row img {
+        width: 45%;
+        max-width: 400px;
+        height: auto;
+        border-radius: 10px;
+    }
+    @media (max-width: 768px) {
+    .image-row {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .image-row img {
+        width: 100%;
+        max-width: 500px;
+    }
+}
+</style>
 </head>
 
 <body>
 
 <div class="project-page">
 
-    <h1>Flight Delay Analysis with Machine Learning</h1>
-
-    images/flight-delay-analysis.png
+    <a href = "https://bmikek.github.io/projects.html">← Back to Projects</a>
 
     <h2>Project Overview</h2>
-
     <p>
         This project investigates whether flight arrival delays can be
         predicted using information available at booking time.
@@ -24,15 +59,15 @@ style.css
         from 2019 through 2023 was analyzed using supervised machine
         learning techniques.
     </p>
-
     <p>
         The goal was to predict arrival delay duration in minutes using
         airline, airport, seasonal, and schedule-related features while
         avoiding information leakage from post-flight data.
     </p>
-
+    <img src = "/images/ml_proj_pres.png"
+        alt = "Random Tree Results"
+        style="max-width:100%;">
     <h2>Technical Contributions</h2>
-
     <ul>
         <li>Performed exploratory data analysis on 3 million flight records.</li>
         <li>Applied cyclical encoding to month and departure hour features.</li>
@@ -41,9 +76,15 @@ style.css
         <li>Built Linear Regression, Ridge, LASSO, Decision Tree, and Random Forest models.</li>
         <li>Used feature engineering techniques including log transforms and outlier capping.</li>
     </ul>
-
+    <section class="image-section">
+         <div class="image-row">
+            <img src="/images/ml_feature_engineering.png"
+                alt="Example of my feature Engineering">
+            <img src="/images/ml_proj_data_extract2.png"
+                alt="EDA example">
+        </div>
+    </section>
     <h2>Results</h2>
-
     <p>
         The Random Forest model achieved the best performance,
         producing an RMSE of approximately 37.8 minutes.
@@ -51,7 +92,10 @@ style.css
         airline-time interactions, and airport historical delay
         behavior were stronger predictors than originally expected.
     </p>
-
+    <img src = "/images/ml_proj_results.png"
+        alt = "Random Tree Results"
+        style="max-width:100%;">
+    
     <h2>Technologies Used</h2>
 
     <ul>
@@ -64,8 +108,7 @@ style.css
         <li>Data Analysis</li>
     </ul>
 
-    files/DSC445_Final_Report.pdf
-        View Full Report
+     <a href = "https://bmikek.github.io/flight_delay_analysis.html">← View Full Report</a>
     </a>
 
 </div>
