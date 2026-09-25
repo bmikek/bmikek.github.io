@@ -4,12 +4,48 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Aquatic Safety Alert System</title>
-style.css
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    body {
+      font-family: system-ui, sans-serif;
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 0 20px;
+      line-height: 1.6;
+    }
+    h1, h2 { margin-top: 1.5em; }
+    ul { margin-top: 0.5em; }
+    a { color: #0066cc; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .image-row {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin: 20px 0;
+        }
+ 
+    .image-row img {
+        width: 48%;
+        height: auto;
+        border-radius: 10px;
+        object-fit: cover;
+        }
+    @media (max-width: 768px) {
+    .image-row {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .image-row img {
+        width: 100%;
+        max-width: 500px;
+    }
+}
+</style>
 </head>
 
 <body>
-
-<div class="project-page">
+    <a href = "https://bmikek.github.io/projects.html">← Back to Projects</a>
 
     <h1>Aquatic Safety Alert System</h1>
 
@@ -52,6 +88,17 @@ style.css
         <li>Embedded web dashboard for alerts</li>
         <li>Portable low-power deployment</li>
     </ul>
+    <section class="image-section">
+         <div class="image-row">
+             <img src = "/images/pool_all_good.jpg"
+                alt = "ALL GOOD Web Ux"
+                style="max-width:100%;"
+             <img src = "/images/pool_alert.jpg"
+                alt = "ALERT Web Ux"
+                style="max-width:100%;">
+        </div>
+ 
+    </section>
 
     <h2>Testing Results</h2>
 
@@ -82,8 +129,15 @@ style.css
     files/ASEE_Paper.pdf
         View Research Paper
     </a>
-
-</div>
+    <h2>Finished Prototype</h2>
+    <p>3D printed Enclosure</p>
+     <img src = "/images/completeproject.jpg"
+        alt = "Finished Design"
+        style="max-width:100%;">
+    <p>Prototype's Hardware</p>
+     <img src = "/images/hardwareprototype.JPG"
+        alt = "Finished Design"
+        style="max-width:100%;">
 
 </body>
 </html>
