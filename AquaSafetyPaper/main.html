@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Brendan Kanaley^{1} and Umer Huzaifa^{2}  " />
+  <title>Acoustic Detection System for Aquatic Safety</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    div.abstract {
+      margin: 2em 2em 2em 2em;
+      text-align: left;
+      font-size: 85%;
+    }
+    div.abstract-title {
+      font-weight: bold;
+      text-align: center;
+      padding: 0;
+      margin-bottom: 0.5em;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title"><strong>Acoustic Detection System for Aquatic
+Safety</strong></h1>
+<p class="author">Brendan
+Kanaley<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi></mi><mn>1</mn></msup><annotation encoding="application/x-tex">^{1}</annotation></semantics></math>
+and Umer
+Huzaifa<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi></mi><mn>2</mn></msup><annotation encoding="application/x-tex">^{2}</annotation></semantics></math>
+<a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a> <a href="#fn2" class="footnote-ref"
+id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+<p>As a lifeguard, or any rescue operative, you are trained to assist a
+health crisis instantly until the victim is stable or higher qualified
+help is available. With lower rates of lifeguard certifications every
+year, the ability to respond to health emergencies and simultaneously
+seek superior assistance to save the victim can prove impossible. This
+paper presents the design, implementation, and evaluation of a real-time
+whistle detection system developed for lifeguard assistance. The system
+utilizes an ESP32 microcontroller with an INMP441 digital microphone to
+capture audio signals, which are processed using the Espressif Digital
+Signal Processing (ESP-DSP) library’s hardware-optimized Fast Fourier
+Transform (FFT) implementation. The device continuously analyzes
+incoming audio, identifying whistle sounds within the 2000-4000 Hz
+frequency range and triggering wireless alerts via WiFi to notify pool
+personnel of potential emergencies. Systematic testing in a simulated
+pool environment evaluated detection accuracy at distances of 5m, 10m,
+and 15m using two frequency band configurations. Results demonstrate
+that a narrow frequency band (2200-3000 Hz) achieves 80% detection
+accuracy within 5m, 60% accuracy within 10m, and eliminates false
+positives entirely across all tested distances. This work contributes to
+the growing field of embedded acoustic event detection by demonstrating
+a power-efficient, real-time solution suitable for safety-critical
+applications. The system’s reliable performance within standard pool
+dimensions suggests practical viability for augmenting lifeguard
+surveillance capabilities.</p>
+</div>
+</header>
+<h1 id="introduction">INTRODUCTION</h1>
+<p>Lifeguards face significant cognitive and physical demands when
+monitoring aquatic environments, requiring sustained attention to detect
+potential drowning incidents among dozens or hundreds of patrons. The
+National Lifeguard Association reports that drowning remains a leading
+cause of unintentional death worldwide, with pool environments
+presenting unique challenges for surveillance due to water surface
+glare, patron density, and the subtle nature of drowning indicators
+<span class="citation" data-cites="worldhealth"></span>. While visual
+surveillance remains the primary method of drowning prevention, auditory
+cues—particularly whistle blows—serve as critical communication tools
+for coordinating emergency response. The whistle has long been the
+standard signaling device in aquatic environments, providing a distinct
+acoustic signature that cuts through ambient pool noise. However, a
+single lifeguard monitoring multiple zones may not be able to signal
+help in critical situations. This limitation creates a potential
+vulnerability in emergency response chains, where delayed detection of a
+distress signal can have life-threatening consequences. Recent advances
+in embedded systems and digital signal processing (DSP) have enabled the
+development of low-power, real-time acoustic event detection systems
+suitable for deployment in public spaces. The ESP32 family of
+microcontrollers, with its integrated WiFi and Bluetooth capabilities
+and support for DSP libraries, offers a compelling platform for such
+applications. Prior work has demonstrated the feasibility of using
+FFT-based analysis for sound classification in urban environments <span
+class="citation" data-cites="espDsp"></span>, but applications specific
+to aquatic safety remain underexplored.</p>
+<p>Threshold-based spectral detection has been applied to a range of
+safety-critical acoustic events beyond whistle detection. Emergency
+vehicle siren detectors, for instance, commonly rely on monitoring
+energy within a fixed, narrow frequency band associated with the target
+signal, on the basis that this band is unlikely to contain significant
+energy from ordinary environmental sounds <span class="citation"
+data-cites="emergency_vehicle_patent_2019"></span>. More recent hardware
+implementations have moved away from machine-learning pipelines in favor
+of low-complexity, fixed-threshold detectors: one such siren detector,
+evaluated on over 1,000 r eal-world recordings, reports a Matthews
+correlation coefficient (effective binary classifier performance metric
+ranging from -1 to 1) of 0.899 using a simple envelope-based,
+threshold-crossing design rather than a trained classifier <span
+class="citation" data-cites="sym18010152"></span>. These results suggest
+that carefully tuned threshold-based methods remain competitive with
+learned approaches for narrowband, well-characterized acoustic
+signatures such as whistles and sirens, motivating the threshold-based
+design adopted in this work.</p>
+<h1 id="problem-statement">PROBLEM STATEMENT</h1>
+<p>Public swimming pools require an automated system capable of reliably
+detecting lifeguard whistle signals in real time. Upon detection, the
+system must immediately notify relevant personnel so that they can
+respond promptly to the situation. To support flexible deployment across
+various pool environments, the device must be self-contained and require
+minimal installation effort. Finally, robust inter-device communication
+is essential to ensure alert propagation across the facility.</p>
+<h1 id="proposed-solution">PROPOSED SOLUTION</h1>
+<p>This paper describes the development of a lifeguard-assisting whistle
+detection device that addresses these gaps. The system continuously
+monitors ambient audio using a digital MEMS microphone, performs
+real-time FFT analysis using the ESP-DSP library, and triggers
+WiFi-based alerts when whistle patterns are detected. The device is
+designed to provide lifeguards with an automated backup alert system,
+augmenting the monitoring activity done by human staff and ensuring that
+distress signals are not missed due to environmental or attentional
+factors. First, a 16 kHz sampling rate is chosen to ensure adequate
+frequency resolution for whistle detection (up to 8 kHz) using Nyquist
+sampling theorem <span class="citation" data-cites="nyquist"></span>.
+Second, the application of the Fast Fourier Transform algorithm, enables
+real-time conversion of time-domain audio signals to frequency-domain
+representations <span class="citation" data-cites="oppenheim"></span>,
+allowing the system to isolate the characteristic frequency signature of
+a whistle.</p>
+<p>Beyond the engineering domain, this work incorporates insights from
+human factors psychology regarding attention and alert fatigue <span
+class="citation" data-cites="AlertFatigue"></span>. The detection
+algorithm employs a dual-threshold approach—requiring both sufficient
+absolute energy in the whistle frequency band and a minimum ratio of
+whistle energy to total audio energy—to minimize false positives. This
+design decision reflects an understanding that excessive false alarms
+would undermine lifeguard trust in the system and lead to alarm
+desensitization, a well-documented phenomenon in safety-critical
+applications <span class="citation"
+data-cites="parasuraman"></span>.</p>
+<h1 id="solution-design-and-implementation">SOLUTION DESIGN AND
+IMPLEMENTATION</h1>
+<p>The whistle detection system was implemented using a modular
+architecture that separates hardware configuration, signal processing,
+and detection logic.</p>
+<h3 id="hardware-configuration">HARDWARE CONFIGURATION</h3>
+<p>The system is built around the ESP32-WROVER development board <span
+class="citation" data-cites="esp32"></span> as a sufficient processor
+for real-time FFT computation. Audio capture is performed using an
+INMP441 digital MEMS microphone <span class="citation"
+data-cites="inmp441"></span>, selected for its I2S interface <span
+class="citation" data-cites="nxp2022i2s"></span>, which simplifies audio
+acquisition without requiring external analog-to-digital conversion.</p>
+<div id="tab:hardware">
+<table>
+<caption>Hardware Component Specifications</caption>
+<thead>
+<tr>
+<th style="text-align: left;"><strong>Component</strong></th>
+<th style="text-align: left;"><strong>Specification</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Microcontroller</td>
+<td style="text-align: left;">ESP32-WROVER (240 MHz dual-core)</td>
+</tr>
+<tr>
+<td style="text-align: left;">Microphone</td>
+<td style="text-align: left;">INMP441 (I2S digital interface)</td>
+</tr>
+<tr>
+<td style="text-align: left;">Acquisition Protocol</td>
+<td style="text-align: left;">Inter-IC Sound (I2S)</td>
+</tr>
+<tr>
+<td style="text-align: left;">Sample Rate</td>
+<td style="text-align: left;">16 kHz</td>
+</tr>
+<tr>
+<td style="text-align: left;">Buffer Size</td>
+<td style="text-align: left;">1024 samples</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span id="tab:hardware" data-label="tab:hardware"></span></p>
+<p>The I2S interface was configured in master mode with 32-bit samples,
+left-channel only capture, and a DMA buffer size of 512 samples across 8
+buffers. This configuration ensures continuous audio streaming while
+maintaining low latency for real-time processing.</p>
+<h3 id="signal-processing-pipeline">SIGNAL PROCESSING PIPELINE</h3>
+<p>The core of the system’s detection capability lies in its real-time
+signal processing pipeline, which transforms raw audio samples into
+frequency-domain representations suitable for whistle identification.
+Figure <a href="#fig:pipeline" data-reference-type="ref"
+data-reference="fig:pipeline">1</a> illustrates the complete processing
+flow.</p>
+<figure id="fig:pipeline" data-latex-placement="t">
+
+<figcaption>Real-time audio signal processing pipeline</figcaption>
+</figure>
+<h3 id="audio-capture-and-pre-processing">AUDIO CAPTURE AND
+PRE-PROCESSING</h3>
+<p>The system captures audio in chunks of 1024 samples at a 16 kHz
+sampling rate, yielding a frequency resolution of 15.625 Hz per bin
+(calculated as sample rate divided by chunk size). The Nyquist frequency
+for this configuration is 8 kHz, which provides sufficient bandwidth to
+capture whistle up to the fourth harmonic <span class="citation"
+data-cites="nyquist"></span>.</p>
+<p>The raw 32-bit samples from the INMP441 microphone contain only 18
+bits of valid audio data. A right shift by 14 bits converts these values
+to the appropriate range for floating-point processing while preserving
+the full dynamic range of the microphone.</p>
+<p>The Hanning window <span class="citation"
+data-cites="hanningWin"></span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>w</mi><mo stretchy="false" form="prefix">[</mo><mi>n</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">w[n]</annotation></semantics></math>,
+defined in Eq. <a href="#eq:hanning" data-reference-type="ref"
+data-reference="eq:hanning">[eq:hanning]</a>, is applied element-wise to
+the incoming audio signal
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo stretchy="false" form="prefix">[</mo><mi>n</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">y[n]</annotation></semantics></math>
+prior to spectral analysis, with its coefficients precomputed using the
+ESP-DSP library’s <code>dsps_wind_hann_f32</code> function for a window
+length equal to the chunk size
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>.
+This tapering function smoothly attenuates the signal towards zero at
+both endpoints of each
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>-point
+chunk, thereby minimizing spectral leakage that would otherwise arise
+from the implicit discontinuities introduced by treating a finite-length
+segment of a continuous signal as periodic.</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>w</mi><mo stretchy="false" form="prefix">[</mo><mi>n</mi><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>0.5</mn><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi mathvariant="normal">cos</mi><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mrow><mn>2</mn><mi>π</mi><mi>n</mi></mrow><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mspace width="1.0em"></mspace><mi>n</mi><mo>=</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>N</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\begin{equation}
+    w[n] = 0.5 \left(1 - \cos\left(\frac{2\pi n}{N-1}\right)\right), \quad n = 0, 1, \dots, N-1
+    \label{eq:hanning}
+\end{equation}</annotation></semantics></math></p>
+<h3 id="frequency-analysis">FREQUENCY ANALYSIS</h3>
+<p>The frequency analysis is performed using the Espressif Digital
+Signal Processing (ESP-DSP) library, which provides hardware-optimized
+FFT implementations tailored for the ESP32’s architecture. The library’s
+<code>dsps_fft2r_fc32</code> function computes a complex-to-complex FFT,
+operating on interleaved real and imaginary arrays <span
+class="citation" data-cites="YAN_2025"></span>. The windowed signal is
+then transformed into the frequency domain using this <code>FFT2R</code>
+function, yielding the complex spectrum
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi><mo stretchy="false" form="prefix">[</mo><mi>k</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">Y[k]</annotation></semantics></math>
+as shown in Eq. <a href="#eq:fft" data-reference-type="ref"
+data-reference="eq:fft">[eq:fft]</a>. Since the <code>FFT2R</code>
+algorithm produces its output in bit-reversed order, a bit-reversal
+permutation is applied to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi><mo stretchy="false" form="prefix">[</mo><mi>k</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">Y[k]</annotation></semantics></math>,
+wherein each frequency bin index
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
+is remapped to the index obtained by reversing its
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>2</mn></msub><mi>N</mi></mrow><annotation encoding="application/x-tex">\log_2 N</annotation></semantics></math>-bit
+binary representation, producing the correctly ordered spectrum
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Y</mi><mtext mathvariant="normal">br</mtext></msub><mo stretchy="false" form="prefix">[</mo><mi>k</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">Y_{\text{br}}[k]</annotation></semantics></math>
+as given in Eq. <a href="#eq:bitrev" data-reference-type="ref"
+data-reference="eq:bitrev">[eq:bitrev]</a>. The magnitude of the complex
+spectrum is then computed via Eq. <a href="#eq:real"
+data-reference-type="ref" data-reference="eq:real">[eq:real]</a> by
+taking the Euclidean norm of the real and imaginary components of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Y</mi><mtext mathvariant="normal">br</mtext></msub><mo stretchy="false" form="prefix">[</mo><mi>k</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">Y_{\text{br}}[k]</annotation></semantics></math>,
+yielding the real-valued magnitude spectrum
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Y</mi><mtext mathvariant="normal">real</mtext></msub><mo stretchy="false" form="prefix">[</mo><mi>k</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">Y_{\text{real}}[k]</annotation></semantics></math>.
+Finally,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Y</mi><mtext mathvariant="normal">real</mtext></msub><mo stretchy="false" form="prefix">[</mo><mi>k</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">Y_{\text{real}}[k]</annotation></semantics></math>
+is normalized by the chunk size
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
+(Eq. <a href="#eq:norm" data-reference-type="ref"
+data-reference="eq:norm">[eq:norm]</a>), producing the scaled magnitude
+spectrum
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>Y</mi><mo accent="true">̂</mo></mover><mo stretchy="false" form="prefix">[</mo><mi>k</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\hat{Y}[k]</annotation></semantics></math>
+over the first
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">N/2</annotation></semantics></math>
+frequency bins, discarding the redundant upper half of the spectrum
+which is a mirror image of the lower half due to the real-valued nature
+of the input signal.</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi><mo stretchy="false" form="prefix">[</mo><mi>k</mi><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mtext mathvariant="normal">FFT2R</mtext><mrow><mo stretchy="true" form="prefix">{</mo><mi>y</mi><mo stretchy="false" form="prefix">[</mo><mi>n</mi><mo stretchy="false" form="postfix">]</mo><mo>⋅</mo><mi>w</mi><mo stretchy="false" form="prefix">[</mo><mi>n</mi><mo stretchy="false" form="postfix">]</mo><mo stretchy="true" form="postfix">}</mo></mrow><mo>,</mo><mspace width="1.0em"></mspace><mi>k</mi><mo>=</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>N</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\begin{equation}
+    Y[k] = \text{FFT2R}\left\{ y[n] \cdot w[n] \right\}, \quad k = 0, 1, \dots, N-1
+    \label{eq:fft}
+\end{equation}</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Y</mi><mtext mathvariant="normal">br</mtext></msub><mo stretchy="false" form="prefix">[</mo><mi>k</mi><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mi>Y</mi><mrow><mo stretchy="true" form="prefix">[</mo><mtext mathvariant="normal">bitrev</mtext><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>,</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>2</mn></msub><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="true" form="postfix">]</mo></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\begin{equation}
+    Y_{\text{br}}[k] = Y\left[\text{bitrev}(k, \log_2 N)\right], 
+    \label{eq:bitrev}
+\end{equation}</annotation></semantics></math> where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="monospace">𝚋𝚒𝚝𝚛𝚎𝚟</mtext><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>,</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>2</mn></msub><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\texttt{bitrev}(k, \log_2 N)</annotation></semantics></math>
+reverses the binary bits of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>.</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Y</mi><mtext mathvariant="normal">real</mtext></msub><mo stretchy="false" form="prefix">[</mo><mi>k</mi><mo stretchy="false" form="postfix">]</mo><mo>=</mo><msqrt><mrow><mrow><mi mathvariant="normal">Re</mi><mo>&#8289;</mo></mrow><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>Y</mi><mtext mathvariant="normal">br</mtext></msub><mo stretchy="false" form="prefix">[</mo><mi>k</mi><mo stretchy="false" form="postfix">]</mo><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo>+</mo><mrow><mi mathvariant="normal">Im</mi><mo>&#8289;</mo></mrow><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>Y</mi><mtext mathvariant="normal">br</mtext></msub><mo stretchy="false" form="prefix">[</mo><mi>k</mi><mo stretchy="false" form="postfix">]</mo><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup></mrow></msqrt></mrow><annotation encoding="application/x-tex">\begin{equation}
+    Y_{\text{real}}[k] = \sqrt{\operatorname{Re}\left(Y_{\text{br}}[k]\right)^2 + \operatorname{Im}\left(Y_{\text{br}}[k]\right)^2}
+    \label{eq:real}
+\end{equation}</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>Y</mi><mo accent="true">̂</mo></mover><mo stretchy="false" form="prefix">[</mo><mi>k</mi><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mfrac><mrow><msub><mi>Y</mi><mtext mathvariant="normal">real</mtext></msub><mo stretchy="false" form="prefix">[</mo><mi>k</mi><mo stretchy="false" form="postfix">]</mo></mrow><mi>N</mi></mfrac><mo>,</mo><mspace width="1.0em"></mspace><mi>k</mi><mo>=</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mfrac><mi>N</mi><mn>2</mn></mfrac><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\begin{equation}
+    \hat{Y}[k] = \frac{Y_{\text{real}}[k]}{N}, \quad k = 0, 1, \dots, \frac{N}{2} - 1
+    \label{eq:norm}
+\end{equation}</annotation></semantics></math></p>
+<p>The bit-reversal operation reorders the FFT output into natural
+frequency order, and the complex-to-real conversion extracts the real
+components. The magnitude calculation normalizes by the chunk size to
+maintain consistent scaling across different buffer sizes.</p>
+<h3 id="detection-algorithm">DETECTION ALGORITHM</h3>
+<p>The detection algorithm employs a dual-threshold approach—requiring
+both sufficient absolute energy in the whistle frequency band and a
+minimum ratio of whistle energy to total audio energy—to minimize false
+positives, a structure that mirrors prior threshold-based acoustic event
+detectors. Similar two-stage designs have been used for gunshot
+detection, where an initial amplitude threshold flags a candidate event
+and a subsequent analysis of energy distribution across frequency bands
+is used to reject false positives before confirming detection <span
+class="citation" data-cites="gunshot_patent_2022"></span>. The present
+work adapts this general pattern, amplitude gating followed by
+spectral-ratio verification, to the whistle detection problem.</p>
+<figure id="fig:bands" data-latex-placement="ht">
+
+<figcaption>Frequency band divisions showing whistle detection region
+(2000-4000 Hz)</figcaption>
+</figure>
+<p>The algorithm first sums the energy in the whistle frequency band
+(configurable between 2000-4000 Hz) and calculates the total energy
+across all frequencies:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>M</mi><mtext mathvariant="normal">total</mtext></msub><mo>=</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mrow><mfrac><mi>N</mi><mn>2</mn></mfrac><mo>−</mo><mn>1</mn></mrow></munderover><mover><mi>Y</mi><mo accent="true">̂</mo></mover><mo stretchy="false" form="prefix">[</mo><mi>i</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\begin{equation*}
+    M_{\text{total}} = \sum_{i=0}^{\frac{N}{2}-1} \hat{Y}[i]
+\end{equation*}</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mtext mathvariant="normal">peak</mtext></msub><mo>=</mo><msub><mi>f</mi><mi>k</mi></msub><mo>,</mo></mrow><annotation encoding="application/x-tex">\begin{equation*}
+    f_{\text{peak}} = f_k,
+\end{equation*}</annotation></semantics></math> where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><munder><mrow><mrow><mi mathvariant="normal">arg</mi><mo>&#8289;</mo></mrow><mi mathvariant="normal">max</mi></mrow><mi>i</mi></munder><mover><mi>Y</mi><mo accent="true">̂</mo></mover><mo stretchy="false" form="prefix">[</mo><mi>i</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">k = \underset{i}{\arg\max}\hat{Y}[i]</annotation></semantics></math>,
+i = 0, 1, …,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>N</mi><mn>2</mn></mfrac><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\frac{N}{2} - 1</annotation></semantics></math>.
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>M</mi><mtext mathvariant="normal">whistle</mtext></msub><mo>=</mo><munderover><mo>∑</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mrow><msub><mi>f</mi><mtext mathvariant="normal">low</mtext></msub><mo>≤</mo><msub><mi>f</mi><mi>i</mi></msub><mo>≤</mo><msub><mi>f</mi><mtext mathvariant="normal">high</mtext></msub></mrow></mtd></mtr></mtable><mrow><mfrac><mi>N</mi><mn>2</mn></mfrac><mo>−</mo><mn>1</mn></mrow></munderover><mover><mi>Y</mi><mo accent="true">̂</mo></mover><mo stretchy="false" form="prefix">[</mo><mi>i</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\begin{equation*}
+    M_{\text{whistle}} = \sum_{\substack{i=0 \\ f_{\text{low}} \leq f_i \leq f_{\text{high}}}}^{\frac{N}{2}-1} \hat{Y}[i]
+\end{equation*}</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">{</mo><mtable><mtr><mtd columnalign="left" style="text-align: left"><mstyle displaystyle="true"><mfrac><msub><mi>M</mi><mtext mathvariant="normal">whistle</mtext></msub><msub><mi>M</mi><mtext mathvariant="normal">total</mtext></msub></mfrac></mstyle></mtd><mtd columnalign="left" style="text-align: left"><mrow><mtext mathvariant="normal">if </mtext><mspace width="0.333em"></mspace></mrow><msub><mi>M</mi><mtext mathvariant="normal">total</mtext></msub><mo>&gt;</mo><mn>0</mn></mtd></mtr><mtr><mtd columnalign="left" style="text-align: left"><mn>0</mn></mtd><mtd columnalign="left" style="text-align: left"><mtext mathvariant="normal">otherwise</mtext></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">\begin{equation*}
+    r = \begin{cases} \dfrac{M_{\text{whistle}}}{M_{\text{total}}} &amp; \text{if } M_{\text{total}} &gt; 0 \\ 0 &amp; \text{otherwise} \end{cases}
+\end{equation*}</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">Alert</mtext><mo>=</mo><mrow><mo stretchy="true" form="prefix">{</mo><mtable><mtr><mtd columnalign="left" style="text-align: left"><mn>1</mn></mtd><mtd columnalign="left" style="text-align: left"><mrow><mtext mathvariant="normal">if </mtext><mspace width="0.333em"></mspace></mrow><msub><mi>M</mi><mtext mathvariant="normal">whistle</mtext></msub><mo>&gt;</mo><mi>τ</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> and </mtext><mspace width="0.333em"></mspace></mrow><mi>r</mi><mo>&gt;</mo><mn>0.3</mn></mtd></mtr><mtr><mtd columnalign="left" style="text-align: left"><mn>0</mn></mtd><mtd columnalign="left" style="text-align: left"><mtext mathvariant="normal">otherwise</mtext></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">\begin{equation}
+    \text{Alert} = \begin{cases} 1 &amp; \text{if } M_{\text{whistle}} &gt; \tau \text{ and } r &gt; 0.3 \\ 0 &amp; \text{otherwise} \end{cases}
+    \label{eq:dual_thresh}
+\end{equation}</annotation></semantics></math></p>
+<p>The specific structure of Eq. <a href="#eq:dual_thresh"
+data-reference-type="ref"
+data-reference="eq:dual_thresh">[eq:dual_thresh]</a> addresses two
+distinct failure modes:</p>
+<ol>
+<li><p><strong>Absolute Threshold (<code>whistleMagnitude</code>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>&gt;</mo><annotation encoding="application/x-tex">&gt;</annotation></semantics></math>
+50.0):</strong> Prevents detection when the whistle band energy is too
+low, regardless of ratio. This eliminates false positives from quiet
+sounds that might accidentally have high frequency
+concentration.</p></li>
+<li><p><strong>Ratio Threshold (<code>ratio</code>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>&gt;</mo><annotation encoding="application/x-tex">&gt;</annotation></semantics></math>
+0.3):</strong> Prevents detection when the whistle band does not
+dominate the audio spectrum. This eliminates false positives from loud
+sounds (such as splashing water or shouting) that contain broadband
+energy, even if they have some energy in the whistle band.</p></li>
+</ol>
+<p>Through empirical testing, a ratio threshold of 30% was found to work
+best. This configuration ensures that a true whistle that concentrates
+significant energy in its fundamental frequency and harmonics
+consistently exceeds the ratio threshold.</p>
+<h3 id="alerting-mechanism">ALERTING MECHANISM</h3>
+<p>Upon whistle detection, the system triggers an alert through the
+ESP32’s integrated WiFi capabilities. The device runs a lightweight web
+server that serves a real-time dashboard to clients on the same local
+area network. When a whistle is detected, the server updates the
+dashboard status and can optionally trigger notifications. The flowchart
+in Fig. <a href="#fig:detection_flow" data-reference-type="ref"
+data-reference="fig:detection_flow">3</a> depicts this mechanism.</p>
+<figure id="fig:detection_flow">
+<img src="./figures/fig_alert.png" />
+<figcaption>On whistle detection, an alert signal is sent to the web
+dashboard where the alert signal is being tracked wtih
+timestamp.</figcaption>
+</figure>
+<figure id="fig:combined-webinterface" data-latex-placement="!ht">
+<figure id="fig:web-idle">
+<img src="./figures/notify_allGood.png" />
+<figcaption>Web interface idle state.</figcaption>
+</figure>
+<figure id="fig:web-alert">
+<img src="./figures/notify_alert.png" />
+<figcaption>Web interface alert state.</figcaption>
+</figure>
+<figcaption>The two states of notification on the mobile device.
+</figcaption>
+</figure>
+<p>The web interface displays the current detection status, the time
+since the last alert, and the real-time frequency band magnitudes. This
+interface provides lifeguards with immediate visual confirmation of
+system operation and detection events. It also concerns all data that
+are not obvious to the lifeguard. The guard’s interface is minimalist,
+an LCD screen with a reset latch that I have implemented as a button
+input. Both signal the MCU via soldered female wire beds on a 7x9 cm
+prototype board seen in Fig. <a href="#fig:combined-hardware"
+data-reference-type="ref"
+data-reference="fig:combined-hardware">9</a>.</p>
+<h1 id="testing-and-validation-setup">TESTING AND VALIDATION SETUP</h1>
+<p>To validate system performance, a testing protocol was established in
+a controlled pool environment. The device was positioned at a standard
+lifeguard station, and whistle tests were conducted at distances of 5m,
+10m, and 15m. For each configuration, 10 whistle blows were performed,
+and both successful detections and false positives were recorded.</p>
+<ul>
+<li><p><strong>Environment:</strong> Indoor pool with ambient noise
+(splashing, conversations, pool equipment)</p></li>
+<li><p><strong>Tolerance Setting:</strong> 18000 (consistent across all
+tests)</p></li>
+<li><p><strong>Frequency Bands Tested:</strong> 2000-4000 Hz and
+2200-3000 Hz</p></li>
+<li><p><strong>Evaluation Metrics:</strong> Detection accuracy
+(successful detections / total trials), false positive count</p></li>
+</ul>
+<p>This testing methodology enabled systematic comparison of band
+configurations and distance performance, providing quantitative data for
+optimizing the detection algorithm for real-world deployment.</p>
+<div class="table*">
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><strong>Distance</strong></th>
+<th style="text-align: center;"><strong>Frequency Band</strong></th>
+<th style="text-align: center;"><strong>Detections</strong></th>
+<th style="text-align: center;"><strong>False Positives</strong></th>
+<th style="text-align: center;"><strong>Accuracy</strong></th>
+<th style="text-align: center;"><strong>Performance Rating</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">5m</td>
+<td style="text-align: center;">2000-4000 Hz</td>
+<td style="text-align: center;">6/10</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">60%</td>
+<td style="text-align: center;">Acceptable</td>
+</tr>
+<tr>
+<td style="text-align: center;">5m</td>
+<td style="text-align: center;">2200-3000 Hz</td>
+<td style="text-align: center;"><strong>8/10</strong></td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;"><strong>80%</strong></td>
+<td style="text-align: center;"><strong>Optimal</strong></td>
+</tr>
+<tr>
+<td style="text-align: center;">10m</td>
+<td style="text-align: center;">2000-4000 Hz</td>
+<td style="text-align: center;">5/10</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">50%</td>
+<td style="text-align: center;">Faulty</td>
+</tr>
+<tr>
+<td style="text-align: center;">10m</td>
+<td style="text-align: center;">2200-3000 Hz</td>
+<td style="text-align: center;">6/10</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">60%</td>
+<td style="text-align: center;"><strong>Acceptable</strong></td>
+</tr>
+<tr>
+<td style="text-align: center;">15m</td>
+<td style="text-align: center;">2000-4000 Hz</td>
+<td style="text-align: center;">5/10</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">50%</td>
+<td style="text-align: center;"><strong>Faulty</strong></td>
+</tr>
+<tr>
+<td style="text-align: center;">15m</td>
+<td style="text-align: center;">2200-3000 Hz</td>
+<td style="text-align: center;">4/10</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">40%</td>
+<td style="text-align: center;">Poor</td>
+</tr>
+</tbody>
+</table>
+<p><span id="tab:accuracy" data-label="tab:accuracy"></span></p>
+</div>
+<p>The results in Table 2 demonstrate that the narrower 2200-3000 Hz
+band completely eliminates false positives across all distances while
+maintaining excellent detection accuracy. Detection performance across
+the pool environment is presented in Fig. 4 providing a spatial
+visualization of these results.</p>
+<figure id="fig:accuracy_comparison" data-latex-placement="ht">
+
+<figcaption>Accuracy comparison: 2000-4000 Hz vs 2200-3000 Hz
+bands</figcaption>
+</figure>
+<figure id="fig:spatial_map" data-latex-placement="H">
+
+<figcaption>Spatial detection map showing whistle recognition
+performance at 5m, 10m, and 15m distances from the lifeguard position.
+Green dots indicate successful detections with the optimal 2200-3000 Hz
+frequency band, while yellow and red marks show detections that needed
+multiple/many attempts.</figcaption>
+</figure>
+<h1 id="discussion-of-results">DIscussion of Results</h1>
+<p>The spatial detection map in Figure 1 reveals several important
+patterns in device performance:</p>
+<ul>
+<li><p><strong>Optimal Zone (0-5m radius):</strong> Near perfect 8/10
+detection accuracy with zero false positives using the 2200-3000 Hz
+band. This zone represents the ideal coverage area for immediate
+lifeguard response.</p></li>
+<li><p><strong>Less Effective Zone (5-10m radius):</strong>
+Unsatisfactory 6/10 detection accuracy maintained with no false
+positives, covering the majority of a standard pool area.</p></li>
+<li><p><strong>Extended Zone (10-15m radius):</strong> Faulty but
+functional 4/10 detection accuracy, still with zero false positives,
+extending coverage to pool perimeters.</p></li>
+</ul>
+<p>The elimination of false positives with the 2200-3000 Hz band is
+particularly significant for practical deployment, as false alarms would
+undermine lifeguard confidence in the system. This finding is consistent
+with prior work on narrowband acoustic signatures: siren detection
+systems similarly restrict analysis to a narrow frequency region closely
+associated with the target signal, since environmental and broadband
+noise sources rarely concentrate energy within such a constrained band
+<span class="citation"
+data-cites="emergency_vehicle_patent_2019"></span>. Narrowing the
+whistle detection band from 2000–4000 Hz to 2200–3000 Hz applies the
+same principle, trading a slight reduction in detection range for a
+substantial gain in specificity. The degradation of detection accuracy
+with the smaller band and distance—from 80% at 5m to 40% at 15m—provides
+a predictable performance envelope for real-world application.</p>
+<p>The current testing protocol recorded false positives as an aggregate
+count per condition without tracking a fixed number of negative
+(non-whistle) trials, which limits analysis to the raw detection and
+false-positive counts reported in Table II rather than standardized
+classification metrics such as Matthews correlation coefficient.
+Similarly, while informal observation during testing suggested alert
+latency remained under 200 ms, this was not systematically measured or
+logged, and memory footprint was not profiled during development. Future
+testing will adopt a fixed-trial protocol—including a standardized set
+of negative (non-whistle) acoustic events per condition and instrumented
+latency and memory measurements—to enable direct, quantitative
+comparison against other threshold-based and learned acoustic detectors
+<span class="citation" data-cites="sym18010152"></span>.</p>
+<figure id="fig:combined-hardware" data-latex-placement="htbp">
+<img src="./figures/prototype.png" />
+<figcaption>(a). Hardware prototype with the requisite components and a
+display screen. (b). Finished device in IDLE state.</figcaption>
+</figure>
+<h1 id="conclusions-and-future-work">CONCLUSIONS AND FUTURE WORK</h1>
+<p>This work presents an automated acoustic detection system for
+identifying lifeguard whistle signals and reporting pool incidents in
+real time—to our knowledge, the first device designed specifically for
+pool incident detection via acoustic pattern recognition.</p>
+<p>Other ESP32-based acoustic monitoring systems typically use a
+distributed architecture, offloading classification to more capable
+hardware; one smart-city detection system, for example, streams
+compressed audio from ESP32 nodes to Raspberry Pi devices running a
+transformer-based classifier <span class="citation"
+data-cites="real-time-acoustic-detect"></span>. By contrast, our system
+performs both acquisition and classification entirely on the ESP32,
+reducing latency and eliminating a network dependency, at the cost of
+the classification flexibility server-side models offer.</p>
+<p>The system’s miniaturized hardware and end-to-end control over
+acquisition and classification distinguish it from general-purpose alert
+systems. Given the staffing constraints common at aquatic facilities,
+such a device could serve as a valuable supplementary safety layer that
+reduces emergency response latency.</p>
+<p>Future work will pursue further miniaturization moving from the ESP32
+development board to bare SoC modules with custom circuitry to cut form
+factor, power consumption, and cost alongside extensive field testing
+across varied acoustic conditions (crowd noise, water turbulence,
+competing signals), pool types, occupancy levels, and whistle types to
+validate robustness before safety-critical deployment.</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li
+id="fn1"><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi></mi><mn>1</mn></msup><annotation encoding="application/x-tex">^{1}</annotation></semantics></math>School
+of Computing, Jarvis College of Computing and Digital Media
+<span><code>bkanaley@depaul.edu</code></span><a href="#fnref1"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li
+id="fn2"><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi></mi><mn>2</mn></msup><annotation encoding="application/x-tex">^{2}</annotation></semantics></math>School
+of Computing, Jarvis College of Computing and Digital Media, DePaul
+University, Chicago, USA <span><code>mhuzaifa@depaul.edu</code></span><a
+href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+</body>
+</html>
